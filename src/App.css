@@ -405,27 +405,9 @@ body {
 /* Skills */
 .skill-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
   margin-top: 4rem;
-}
-
-@media (min-width: 640px) {
-  .skill-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (min-width: 768px) {
-  .skill-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .skill-grid {
-    grid-template-columns: repeat(5, 1fr);
-  }
 }
 
 .skill-item {
@@ -438,16 +420,6 @@ body {
   border-radius: 0.5rem;
   border: 1px solid transparent;
   transition: all 0.2s;
-}
-
-.skill-item:hover {
-  border-color: var(--border-light);
-  background-color: var(--surface-light);
-}
-
-.dark .skill-item:hover {
-  border-color: var(--border-dark);
-  background-color: var(--surface-dark);
 }
 
 .skill-item img {

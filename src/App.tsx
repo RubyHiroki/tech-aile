@@ -27,7 +27,7 @@ function App() {
                 <span className="gradient">CODE</span> THE FUTURE.
               </h1>
               <p className="hero-text">
-                フリーランスエンジニアとして、最新のWebテクノロジーを駆使し、<br/>ビジネスの成長を加速させるソリューションを提供します。
+                最新のWebテクノロジーを駆使し、ビジネスの成長を加速させるソリューションを提供します。
               </p>
               <div className="btn-group">
                 <a className="btn primary" href="#works">実績を見る</a>
@@ -79,44 +79,52 @@ function App() {
             </div>
             <div className="skill-grid">
               <div className="skill-item">
-                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCz7BnWtX4JSGCj09IbAdyf--WWH3Xr-dLcDp9ZlCz4id5ul29foyWHd1p-KZ__GHVGfv3hehLhFKamoL2vWFjv3n25pmLL2MJhc9SmgKtc7GvSchcn1Htj9J0UbmjIGEaNo-QqGmY3DFU4hHGoyHZmdbEGaMh7oV_Ckoi842pob4SluHeUGjkrL7tzlyaPhqoLpuO-fBRwEVRF4RaS9ilzA5RvXG08qn1p2P-Jkp77feMj0bKgh29qer26whQh0HSFqmKGRzjLkKE" alt="HTML5 icon" />
-                <p>HTML5</p>
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg"
+                  alt="Ruby icon"
+                  style={{ borderRadius: "5px" }}
+                />
+                <p>Ruby</p>
               </div>
               <div className="skill-item">
-                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6dPnh45fiCzZwkfswTAXeaW132BB-bF9wlipJtkYg1-33AVTx-kNob5fNMlX6k6Zeilp6Sx9Las19fk4DP_NCg1eF4uCK8RxFVMy4RqNgbqrsgRmx41_4rHllfliw9a49u3Olx2GuNXZ_rIk0QgwZz_PqeE5f231xvo2GNqSjywhGDTK_U3xTRpPHhkAxuoPoZVxXUtB5Or5S9mMSMJpELJ8BkHYGokBmURSoVNVDJ8L6mxwZ09Ssd78dIFOPrVKTTNGS6Df1Wzo" alt="CSS3 icon" />
-                <p>CSS3</p>
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rails/rails-plain.svg"
+                  alt="Ruby on Rails logo"
+                  style={{ background: "white", borderRadius: "5px" }}
+                />
+                <p>Ruby on Rails</p>
               </div>
               <div className="skill-item">
-                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7jjFSkZ38GeEFci6ecEP4wl0W3SSwiNDFKrTq7F4_BP8NBAm2hJw_R2fDtYsmKG9GZghwVjspP9MgSYszWGECAuDA4ewpYcNqXBJsOjlOGgz--QScPbhSjtJZxLLvMbHT7o4YIGkNJh_OARtdNs1igm1IyOxA8QgfUV3koIF18h8RIz3L2qGvrJ7wPEmV1yEDeZz_G0lUxHdVYjf5k1UFuydQXHRB4wyMqp7nDKuacQGhzheExzdIDZva1nmpwgb0K9uT_XyCIh0" alt="JavaScript icon" />
-                <p>JavaScript</p>
-              </div>
-              <div className="skill-item">
-                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMFXFbbuLxGYvlh4_Eps2gDbOgXAaPhzE8yppXL_3DMVDHOLqyEkxJzcYtLKqH3J2ocPfMD0KvCvEFaBnXIfE0WKPha9b3jplIbERjsq65-dwiKMkDco7XfJCHOWmCaDiuMKcDDs5gAq0UugCEtJWMHHGH5aUmMEi_72GCxjGfoExX4H0VtNVP5HEAuwNXspXJUfLnX3KG6UFw6sbR_sDSQkwYq2MQjcW85grDUy2NouQgykt6A6cSaQtULRiKV-LGpdVwBWmoev0" alt="TypeScript icon" />
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
+                  alt="TypeScript icon"
+                  style={{ borderRadius: "5px" }}
+                />
                 <p>TypeScript</p>
               </div>
               <div className="skill-item">
-                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIN85D8u7UCXdOaLSy-JL9_mwkyQdPRfL4SFEuy2M2TTQmQUvO5qyfLHXhxDvPcrFCFNAsdqgIp2RSIivw2Kt8aOBtsfmCtUebO0u_Z3zbMunZiwMHD4xBp_6MMERxnsHOmtbU9xki6xax4fh5mGLyLAQjATTHZectncdt7t_hfHMHbI3y9ifC_yceiwrx4UJA7bOmu9odGhA3JNLW_aFKjak0G360vhncWmivuneRpYy5bMICXjcvfN8Uti30Hclz1G5sURZh3pU" alt="React icon" />
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                  alt="React logo"
+                  style={{ borderRadius: "5px" }}
+                />
                 <p>React</p>
               </div>
               <div className="skill-item">
-                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEAAHsvuPAxuQHsA-zFLIQmTi3poo93r3U-Qihx9Fta_Q2f2PTpqxA52Iwz9MKmXaXan038Yl5QuaMGpX4GKP0OnNN8-JZLb0foN4-UGj7uAFqmdK63j0_TyPmoUahEDyK9M-5FQTXMpTmN8AaMes2Gsh2qt5CjM0HKQm3C8nICUMksxq8kHbYyX3G86CM5QvXYaVQ33auPtssaytMqAl3hjddTqoCoWxZrbX2k9IFkyLqOSj-9Glv7TkVl4_YF2E5MNqbqnGFdlg" alt="Next.js icon" />
-                <p>Next.js</p>
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                  alt="React Native logo"
+                  style={{ borderRadius: "5px" }}
+                />
+                <p>React Native</p>
               </div>
               <div className="skill-item">
-                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOFPAWOD_0gX89FhudLRawIpQ1uimQQ8ZxXNn3IlFS26JPrJQBFRjOY0TRvO5fGZmdc7N6CVMkZQGXNDL2dw090QfLwGd6PEcPXsNMEXskiOfnvoeILLSDR050N_XC876b1w3FWI9BIzpfSchb6L__z4lIhS3ZaVOTd4HElP0MLlw-pO5F7tAdLuF3cwFCBEJ6ClbGHTGHirOcZkCawXyh2kMxhzkhPf2MzjwHmVS2vRit-WfIK809YhaHc6VjxI26EzrcPCTIaXw" alt="Node.js icon" />
-                <p>Node.js</p>
-              </div>
-              <div className="skill-item">
-                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhfc5CGTH62DdkoryqcyNALsYuxYhCJT2T_cPKWSrKFl6nLEaQ_9C1EiyKBLr-6_KLabaogLLxPvtWlmyKoKMPQytxELB8yoep0T3owMiQEkpXbO0qzdqjk3Syq3zW_4ACMn8MqgR1CzY2IP1QkywpJGgTXMaTZ93hste7vcfrCUPUbowWowUKrdnpoXS9TZCzdW7LggA6_hTirks1JJuQ8ETvG7f1OI49Kn5F0TP3GbOiQwTDDZHRcC1B56GFSplditlnUxuiFzY" alt="Python icon" />
-                <p>Python</p>
-              </div>
-              <div className="skill-item">
-                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDAXw--glg6zZk2CMxAjN9qnspseW-C3weFSsMgUGhV53Bsv4zLeu9Igyj-ar7-wLqWrX3cxIpOYZAPn3Zk9sRGxhn1MbFjjzLQ5pJDUPSRCRWdr94h_ThwMoj0m6b-qaOoirz1NZ-mZ5obRupPN2YB2smOpbkaaP7bBKecXpcQlBCiGzjpp9Lqt49S_YPnbRq6t3pgCKTQ7qRqWnnwRhNPu4EaJHdu5WMDORb1rtKjxKvWvf-XSVb0EhW8AR5tpfpKoFInXysBCI" alt="Docker icon" />
-                <p>Docker</p>
-              </div>
-              <div className="skill-item">
-                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFKVQe7g_YgcHKhquwW5xhej0LXOPUVBgZ-nc8Wrf78lL-Bo57pTosKMn8yBQt6SbAdrHyeR14dAgNeBtMuzg9RCC4Pi5pPM1ApHNqwzrb91IeMDvWPCVJKp-BJIG9CxPwWegsaPTL55Jxtvcn1B2VpPh4JFz1wjtu1JGutRGikETOhQVR8FkIBJTwGBNc9G41uzwS4yK9rikibRm11j3NEhzkuFD5OAn34HKRICvYEPpGXq6zyWXtrZpRynx78GYuSeyRtztaDDw" alt="AWS icon" />
-                <p>AWS</p>
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
+                  alt="PostgreSQL icon"
+                  style={{ borderRadius: "5px" }}
+                />
+                <p>PostgreSQL</p>
               </div>
             </div>
           </section>
