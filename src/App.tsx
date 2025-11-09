@@ -27,24 +27,51 @@ function App() {
     setErrorMessage('');
 
     try {
+      console.log('フォーム送信中...', formData);
+      
+      // 開発環境では開発用メールサーバーのエンドポイントを使用
+      const apiUrl = import.meta.env.DEV 
+        ? 'http://localhost:3001/api/send' 
+        : '/api/send';
+      
+      console.log('API URL:', apiUrl);
+      
+      const requestData = {
+        from: 'onboarding@resend.dev',
+        to: import.meta.env.VITE_RECEIVER_EMAIL,
+        subject: `お問い合わせ: ${formData.name}様より`,
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+      };
+      
       // API endpoint would be created separately
-      const response = await fetch('/api/send', {
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
-        body: JSON.stringify({
-          from: 'onboarding@resend.dev', // Resendの検証済みドメインまたはデフォルトのアドレス
-          to: 'your-email@example.com', // 受信先のメールアドレス
-          subject: `お問い合わせ: ${formData.name}様より`,
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-        }),
+        body: JSON.stringify(requestData),
+        // 開発環境ではCORSモードを設定
+        ...(import.meta.env.DEV ? { mode: 'cors' } : {})
       });
 
+      console.log('レスポンス受信:', response.status, response.statusText);
+      
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error('エラーレスポンス:', errorText);
         throw new Error('送信に失敗しました。後ほど再度お試しください。');
+      }
+      
+      // レスポンスのJSONパースを試みる
+      try {
+        const responseData = await response.json();
+        console.log('レスポンスデータ:', responseData);
+      } catch (parseError) {
+        console.warn('JSONパースエラー:', parseError);
+        // JSONパースに失敗しても処理を続行
       }
 
       setFormStatus('success');
@@ -52,7 +79,16 @@ function App() {
     } catch (error) {
       console.error('Error sending email:', error);
       setFormStatus('error');
-      setErrorMessage(error instanceof Error ? error.message : '送信に失敗しました。後ほど再度お試しください。');
+      
+      // エラーメッセージの詳細化
+      if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+        console.error('ネットワークエラー: 開発用メールサーバーに接続できません');
+        setErrorMessage('開発用メールサーバーに接続できません。サーバーが起動しているか確認してください。');
+      } else if (error instanceof Error) {
+        setErrorMessage(error.message);
+      } else {
+        setErrorMessage('送信に失敗しました。後ほど再度お試しください。');
+      }
     }
   };
 

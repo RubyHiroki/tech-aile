@@ -7,7 +7,7 @@
 - アニメーションとスクロール効果
 - レスポンシブデザイン
 - ダークモード対応
-- Resendを使用したお問い合わせフォーム
+- 開発用メールサーバー対応のお問い合わせフォーム
 
 ## 開発環境のセットアップ
 
@@ -25,28 +25,52 @@ npm install
 3. 環境変数の設定
 プロジェクトのルートに`.env`ファイルを作成し、以下の内容を追加します：
 ```
-VITE_RESEND_API_KEY=re_YOUR_API_KEY_HERE
+# 開発用メールサーバー設定
+RECEIVER_EMAIL=your-email@example.com
+
+# SMTPサーバー設定（オプション）
+# SMTP_HOST=smtp.example.com
+# SMTP_PORT=587
+# SMTP_SECURE=false
+# SMTP_USER=your-username
+# SMTP_PASS=your-password
 ```
 
-4. 開発サーバーの起動
+4. 開発サーバーとメールサーバーの起動
 ```bash
+# フロントエンドの開発サーバーのみを起動
 npm run dev
+
+# 開発用メールサーバーのみを起動
+npm run mail-server
+
+# 両方を同時に起動
+npm run dev:all
 ```
 
-## Resendの設定
+## 開発用メールサーバーについて
 
-1. [Resend](https://resend.com)でアカウントを作成
-2. APIキーを取得
-3. `.env`ファイルにAPIキーを設定
-4. 必要に応じて、検証済みドメインを設定
+このプロジェクトには、開発時にメール送信をテストするための開発用メールサーバーが含まれています。
 
-## APIエンドポイントについて
+### 機能
 
-このプロジェクトでは、お問い合わせフォームからのデータを処理するためのAPIエンドポイントが必要です。Viteはフロントエンドのみのツールであるため、以下のいずれかの方法でAPIを設定する必要があります：
+- お問い合わせフォームからのメール送信処理
+- 送信したメールのファイルへの保存（デフォルト）
+- 実際のSMTPサーバーを使用したメール送信（設定時）
+- 送信済みメール一覧の確認（開発用）
 
-1. Express.jsなどを使用したバックエンドサーバーの構築
-2. Netlify FunctionsやVercel Serverless Functionsなどのサーバーレス関数の使用
-3. Firebase Functionsなどのクラウドサービスの利用
+### エンドポイント
+
+- `http://localhost:3001/api/send` - メール送信API
+- `http://localhost:3001/api/sent-mails` - 送信済みメール一覧（開発用）
+- `http://localhost:3001/health` - ヘルスチェック
+
+### SMTP設定（オプション）
+
+実際のメールを送信したい場合は、`.env`ファイルにSMTP設定を追加します。設定しない場合は、メールはファイルに保存されます。
+
+- Gmail SMTPを使用する場合は、[アプリパスワード](https://support.google.com/accounts/answer/185833)を設定する必要があります。
+- 他のSMTPサービス（SendGrid、Mailgun、Amazon SESなど）も使用できます。
 
 ## デプロイ
 
