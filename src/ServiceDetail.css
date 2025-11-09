@@ -1,0 +1,280 @@
+/* ServiceDetail.css */
+.sd-container {
+  --primary: #137fec;
+  --bg-dark: #101922;
+  font-family: 'Inter', 'Noto Sans JP', sans-serif;
+  background-color: var(--bg-dark);
+  color: #fff;
+  min-height: 100vh;
+}
+
+.sd-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.sd-content {
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* ヘッダー */
+.sd-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sd-logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sd-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--primary);
+}
+
+.sd-nav {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .sd-nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+}
+
+.sd-nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.sd-nav a:hover {
+  color: var(--primary);
+}
+
+.sd-btn {
+  background-color: var(--primary);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+}
+
+.sd-btn:hover {
+  opacity: 0.9;
+  color: #fff !important;
+}
+
+/* ヒーローセクション */
+.sd-hero {
+  text-align: center;
+  padding: 4rem 0;
+}
+
+.sd-hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.sd-hero p {
+  color: #cbd5e1;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* サービスセクション */
+.sd-services {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.sd-service-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sd-service-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.5rem;
+  background-color: rgba(19, 127, 236, 0.2);
+}
+
+.sd-service-icon .material-symbols-outlined {
+  font-size: 2.5rem;
+  color: var(--primary);
+}
+
+.sd-service-content {
+  flex: 1;
+}
+
+.sd-service-content h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.sd-service-content p {
+  color: #94a3b8;
+  font-size: 0.875rem;
+}
+
+.sd-service-arrow {
+  color: var(--primary);
+}
+
+/* フローセクション */
+.sd-flow {
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.sd-flow h2 {
+  font-size: 2rem;
+  margin-bottom: 3rem;
+}
+
+.sd-timeline {
+  position: relative;
+  padding: 2rem 0;
+}
+
+.sd-timeline-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateX(-50%);
+}
+
+.sd-step {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 4rem;
+  position: relative;
+}
+
+.sd-step.reverse {
+  flex-direction: row-reverse;
+}
+
+.sd-step-content {
+  flex: 1;
+  text-align: left;
+}
+
+.sd-step.reverse .sd-step-content {
+  text-align: right;
+}
+
+.sd-step-num {
+  color: var(--primary);
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.sd-step-content h3 {
+  margin-bottom: 0.5rem;
+}
+
+.sd-step-content p {
+  color: #94a3b8;
+  font-size: 0.875rem;
+}
+
+.sd-step-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: var(--primary);
+  z-index: 1;
+}
+
+/* フッター */
+.sd-footer {
+  padding: 2rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.sd-footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.sd-footer-links a {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s;
+}
+
+.sd-footer-links a:hover {
+  color: var(--primary);
+}
+
+.sd-footer p {
+  color: #94a3b8;
+  font-size: 0.75rem;
+}
+
+/* Material Icons */
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .sd-timeline-line {
+    left: 1.5rem;
+  }
+  
+  .sd-step, .sd-step.reverse {
+    flex-direction: row;
+    text-align: left;
+  }
+  
+  .sd-step.reverse .sd-step-content {
+    text-align: left;
+  }
+  
+  .sd-step-icon {
+    margin-right: 1.5rem;
+  }
+}

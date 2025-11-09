@@ -1,8 +1,11 @@
 import { useEffect, useState, useCallback } from 'react'
 import type { FormEvent } from 'react'
 import './App.css'
+import ServiceDetail from './ServiceDetail'
 
 function App() {
+  // サービス詳細表示状態
+  const [showServiceDetail, setShowServiceDetail] = useState(false);
   // スムーズスクロール関数
   const scrollToSection = useCallback((e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -129,16 +132,25 @@ function App() {
     };
   }, []);
   
+  // サービス詳細ページから戻る処理
+  const handleBackToMain = () => {
+    setShowServiceDetail(false);
+  };
+
   return (
-    <div className="portfolio">
-      <header className="header">
-        <div className="container">
-          <a className="logo" href="#">
-            <span className="icon">terminal</span>
-            <h2>Tech Aile</h2>
-          </a>
-        </div>
-      </header>
+    <>
+      {showServiceDetail ? (
+        <ServiceDetail onBack={handleBackToMain} />
+      ) : (
+        <div className="portfolio">
+          <header className="header">
+            <div className="container">
+              <a className="logo" href="#">
+                <span className="icon">terminal</span>
+                <h2>Tech Aile</h2>
+              </a>
+            </div>
+          </header>
 
       <main className="main">
         <div className="container">
@@ -193,7 +205,10 @@ function App() {
               </div>
             </div>
             <div className="section-action">
-              <a href="#contact" className="btn primary">詳細を見る</a>
+              <a href="#" className="btn primary" onClick={(e) => {
+                e.preventDefault();
+                setShowServiceDetail(true);
+              }}>詳細を見る</a>
             </div>
           </section>
 
@@ -335,6 +350,8 @@ function App() {
         </div>
       </footer>
     </div>
+      )}
+    </>
   )
 }
 
