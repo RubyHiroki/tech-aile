@@ -1,8 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import type { FormEvent } from 'react'
 import './App.css'
 
 function App() {
+  // スムーズスクロール関数
+  const scrollToSection = useCallback((e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      window.scrollTo({
+        top: element.offsetTop - 80, // ヘッダーの高さ分を引く
+        behavior: 'smooth'
+      });
+    }
+  }, []);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -126,11 +137,6 @@ function App() {
             <span className="icon">terminal</span>
             <h2>Tech Aile</h2>
           </a>
-          <nav className="nav">
-            <a href="#services">SERVICES</a>
-            <a href="#works">WORKS</a>
-            <a href="#contact">CONTACT</a>
-          </nav>
         </div>
       </header>
 
@@ -146,8 +152,8 @@ function App() {
                 最新のWebテクノロジーを駆使し、ビジネスの成長を加速させるソリューションを提供します。
               </p>
               <div className="btn-group">
-                <a className="btn primary" href="#works">実績を見る</a>
-                <a className="btn secondary" href="#contact">問い合わせる</a>
+                <a className="btn primary" href="#works" onClick={(e) => scrollToSection(e, 'works')}>実績を見る</a>
+                <a className="btn secondary" href="#contact" onClick={(e) => scrollToSection(e, 'contact')}>問い合わせる</a>
               </div>
             </div>
           </section>
@@ -181,10 +187,13 @@ function App() {
                   <span className="icon">support_agent</span>
                 </div>
                 <div className="card-content">
-                  <h3>システム保守・運用</h3>
-                  <p>導入後のシステムの保守・運用を行います。</p>
+                  <h3>システム運用・保守</h3>
+                  <p>導入後のシステムの運用・保守を行います。</p>
                 </div>
               </div>
+            </div>
+            <div className="section-action">
+              <a href="#contact" className="btn primary">詳細を見る</a>
             </div>
           </section>
 
@@ -248,7 +257,11 @@ function App() {
           <section className="section" id="contact">
             <div className="section-header">
               <h2>CONTACT</h2>
-              <p>システム・アプリ制作のご相談、お見積もりの依頼など、お気軽にご連絡ください。</p>
+              <p>
+                システム・アプリ制作のご相談、お見積もりの依頼など、
+                <br />
+                お気軽にご連絡ください。
+              </p>
             </div>
             <div className="contact-form">
               <form onSubmit={handleSubmit}>
