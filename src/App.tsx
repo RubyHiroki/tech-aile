@@ -1,7 +1,61 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import type { FormEvent } from 'react'
 import './App.css'
 
 function App() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  // Form input handlers
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  // Form submission handler
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormStatus('submitting');
+    setErrorMessage('');
+
+    try {
+      // API endpoint would be created separately
+      const response = await fetch('/api/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: 'onboarding@resend.dev', // Resendの検証済みドメインまたはデフォルトのアドレス
+          to: 'your-email@example.com', // 受信先のメールアドレス
+          subject: `お問い合わせ: ${formData.name}様より`,
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('送信に失敗しました。後ほど再度お試しください。');
+      }
+
+      setFormStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setFormStatus('error');
+      setErrorMessage(error instanceof Error ? error.message : '送信に失敗しました。後ほど再度お試しください。');
+    }
+  };
+
   useEffect(() => {
     const sections = document.querySelectorAll('.section');
     
@@ -74,7 +128,7 @@ function App() {
                 </div>
                 <div className="card-content">
                   <h3>Webサイト制作</h3>
-                  <p>モダンな技術スタックを用いた、ウェブサイトやホームページを制作します。</p>
+                  <p>モダンな技術スタックを用いて、ウェブサイトやホームページを制作します。</p>
                 </div>
               </div>
               <div className="card">
@@ -161,21 +215,64 @@ function App() {
               <p>システム・アプリ制作のご相談、お見積もりの依頼など、お気軽にご連絡ください。</p>
             </div>
             <div className="contact-form">
-              <form action="#" method="POST">
+              <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label htmlFor="name">お名前</label>
-                  <input type="text" id="name" name="name" required />
+                  <input 
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    value={formData.name}
+                    onChange={handleChange}
+                    required 
+                    disabled={formStatus === 'submitting'}
+                  />
                 </div>
                 <div className="form-group">
                   <label htmlFor="email">メールアドレス</label>
-                  <input type="email" id="email" name="email" required />
+                  <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    value={formData.email}
+                    onChange={handleChange}
+                    required 
+                    disabled={formStatus === 'submitting'}
+                  />
                 </div>
                 <div className="form-group">
                   <label htmlFor="message">メッセージ</label>
-                  <textarea id="message" name="message" rows={4} required></textarea>
+                  <textarea 
+                    id="message" 
+                    name="message" 
+                    rows={4} 
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    disabled={formStatus === 'submitting'}
+                  ></textarea>
                 </div>
+                
+                {formStatus === 'error' && (
+                  <div className="form-error">
+                    <p>{errorMessage}</p>
+                  </div>
+                )}
+                
+                {formStatus === 'success' && (
+                  <div className="form-success">
+                    <p>お問い合わせありがとうございます。メッセージが送信されました。</p>
+                  </div>
+                )}
+                
                 <div className="form-group">
-                  <button type="submit" className="btn primary">送信する</button>
+                  <button 
+                    type="submit" 
+                    className="btn primary"
+                    disabled={formStatus === 'submitting'}
+                  >
+                    {formStatus === 'submitting' ? '送信中...' : '送信する'}
+                  </button>
                 </div>
               </form>
             </div>

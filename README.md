@@ -1,73 +1,57 @@
-# React + TypeScript + Vite
+# Tech Aile
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+モダンなWebテクノロジーを駆使したポートフォリオサイトです。
 
-Currently, two official plugins are available:
+## 機能
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- アニメーションとスクロール効果
+- レスポンシブデザイン
+- ダークモード対応
+- Resendを使用したお問い合わせフォーム
 
-## React Compiler
+## 開発環境のセットアップ
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. リポジトリをクローン
+```bash
+git clone <repository-url>
+cd tech_aile
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. 依存関係のインストール
+```bash
+npm install
 ```
+
+3. 環境変数の設定
+プロジェクトのルートに`.env`ファイルを作成し、以下の内容を追加します：
+```
+VITE_RESEND_API_KEY=re_YOUR_API_KEY_HERE
+```
+
+4. 開発サーバーの起動
+```bash
+npm run dev
+```
+
+## Resendの設定
+
+1. [Resend](https://resend.com)でアカウントを作成
+2. APIキーを取得
+3. `.env`ファイルにAPIキーを設定
+4. 必要に応じて、検証済みドメインを設定
+
+## APIエンドポイントについて
+
+このプロジェクトでは、お問い合わせフォームからのデータを処理するためのAPIエンドポイントが必要です。Viteはフロントエンドのみのツールであるため、以下のいずれかの方法でAPIを設定する必要があります：
+
+1. Express.jsなどを使用したバックエンドサーバーの構築
+2. Netlify FunctionsやVercel Serverless Functionsなどのサーバーレス関数の使用
+3. Firebase Functionsなどのクラウドサービスの利用
+
+## デプロイ
+
+```bash
+npm run build
+```
+
+`dist`ディレクトリに生成されたファイルをホスティングサービス（Netlify、Vercel、GitHub Pagesなど）にデプロイします。
