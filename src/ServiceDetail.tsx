@@ -6,38 +6,82 @@ interface ServiceDetailProps {
 }
 
 const ServiceDetail: React.FC<ServiceDetailProps> = ({ onBack }) => {
-  // コンポーネントがマウントされたときにページトップにスクロール
+  // コンポーネントがマウントされたときの処理を統合
   useEffect(() => {
+    // ページトップにスクロール
     window.scrollTo({
       top: 0,
       behavior: 'auto'
     });
-  }, []);
-  
-  // スクロールに応じてセクションを表示する
-  useEffect(() => {
-    const sections = document.querySelectorAll('.sd-section');
     
-    const checkScroll = () => {
-      sections.forEach((section) => {
+    // 画面内の要素を表示するための処理
+    const sections = document.querySelectorAll('.sd-section');
+    let isScrolling = false;
+    let scrollTimeout: number | null = null;
+    
+    // 画面内の要素をチェックして表示する関数
+    const checkVisibility = () => {
+      const windowHeight = window.innerHeight;
+      
+      sections.forEach((section, index) => {
         const sectionTop = section.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
         
-        if (sectionTop < windowHeight * 0.85) {
-          section.classList.add('visible');
+        // 画面内に入っている要素を表示
+        if (sectionTop < windowHeight * 0.9) {
+          if (!section.classList.contains('visible')) {
+            // 最初のセクションは即時表示、それ以外は少し遅延
+            if (index === 0) {
+              section.classList.add('visible');
+            } else {
+              setTimeout(() => {
+                section.classList.add('visible');
+              }, 100);
+            }
+          }
         }
       });
     };
     
-    // 初回ロード時にチェック
-    setTimeout(checkScroll, 100);
+    // スクロール中フラグを管理する関数
+    const handleScrollState = () => {
+      isScrolling = true;
+      
+      // 既存のタイムアウトをクリア
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+      
+      // スクロール終了を検出
+      scrollTimeout = window.setTimeout(() => {
+        isScrolling = false;
+        checkVisibility(); // スクロール停止時にも要素をチェック
+      }, 100) as unknown as number;
+    };
+    
+    // 最適化されたスクロールハンドラ
+    const onScroll = () => {
+      if (!isScrolling) {
+        window.requestAnimationFrame(() => {
+          checkVisibility();
+        });
+      }
+      handleScrollState();
+    };
+    
+    // 初回表示時に画面内の要素を表示
+    window.requestAnimationFrame(() => {
+      checkVisibility();
+    });
     
     // スクロールイベントリスナーを追加
-    window.addEventListener('scroll', checkScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
     
     // クリーンアップ
     return () => {
-      window.removeEventListener('scroll', checkScroll);
+      window.removeEventListener('scroll', onScroll);
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
     };
   }, []);
   return (
