@@ -6,7 +6,7 @@ interface ServiceDetailProps {
 }
 
 const ServiceDetail: React.FC<ServiceDetailProps> = ({ onBack }) => {
-  // コンポーネントがマウントされたときの処理を統合
+  // コンポーネントがマウントされたときにページトップにスクロールのみ実行
   useEffect(() => {
     // ページトップにスクロール
     window.scrollTo({
@@ -14,75 +14,25 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ onBack }) => {
       behavior: 'auto'
     });
     
-    // 画面内の要素を表示するための処理
+    // すべての要素に最初からvisibleクラスを追加して表示する
     const sections = document.querySelectorAll('.sd-section');
-    let isScrolling = false;
-    let scrollTimeout: number | null = null;
+    const steps = document.querySelectorAll('.sd-step');
+    const serviceItems = document.querySelectorAll('.sd-service-item');
     
-    // 画面内の要素をチェックして表示する関数
-    const checkVisibility = () => {
-      const windowHeight = window.innerHeight;
-      
-      sections.forEach((section, index) => {
-        const sectionTop = section.getBoundingClientRect().top;
-        
-        // 画面内に入っている要素を表示
-        if (sectionTop < windowHeight * 0.9) {
-          if (!section.classList.contains('visible')) {
-            // 最初のセクションは即時表示、それ以外は少し遅延
-            if (index === 0) {
-              section.classList.add('visible');
-            } else {
-              setTimeout(() => {
-                section.classList.add('visible');
-              }, 100);
-            }
-          }
-        }
-      });
-    };
-    
-    // スクロール中フラグを管理する関数
-    const handleScrollState = () => {
-      isScrolling = true;
-      
-      // 既存のタイムアウトをクリア
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
-      }
-      
-      // スクロール終了を検出
-      scrollTimeout = window.setTimeout(() => {
-        isScrolling = false;
-        checkVisibility(); // スクロール停止時にも要素をチェック
-      }, 100) as unknown as number;
-    };
-    
-    // 最適化されたスクロールハンドラ
-    const onScroll = () => {
-      if (!isScrolling) {
-        window.requestAnimationFrame(() => {
-          checkVisibility();
-        });
-      }
-      handleScrollState();
-    };
-    
-    // 初回表示時に画面内の要素を表示
-    window.requestAnimationFrame(() => {
-      checkVisibility();
+    // すべてのセクションを表示
+    sections.forEach((section) => {
+      section.classList.add('visible');
     });
     
-    // スクロールイベントリスナーを追加
-    window.addEventListener('scroll', onScroll, { passive: true });
+    // すべてのステップを表示
+    steps.forEach((step) => {
+      step.classList.add('visible');
+    });
     
-    // クリーンアップ
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
-      }
-    };
+    // すべてのサービスアイテムを表示
+    serviceItems.forEach((item) => {
+      item.classList.add('visible');
+    });
   }, []);
   return (
     <div className="portfolio">
