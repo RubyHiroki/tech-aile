@@ -154,46 +154,54 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ onBack }) => {
               <div className="sd-timeline-line"></div>
               
               <div className="sd-step">
-                <div className="sd-step-content">
-                  <p className="sd-step-num">Step 01</p>
-                  <h3>お問い合わせ・ヒアリング</h3>
-                  <p>プロジェクトの概要や課題についてお聞かせください。オンラインで詳細なヒアリングを行い、目的やご要望を深く理解します。</p>
-                </div>
-                <div className="sd-step-icon">
-                  <span className="icon">rate_review</span>
-                </div>
-              </div>
-              
-              <div className="sd-step reverse">
-                <div className="sd-step-content">
-                  <p className="sd-step-num">Step 02</p>
-                  <h3>ご提案・お見積もり</h3>
-                  <p>ヒアリング内容に基づき、最適な開発プラン、技術選定、スケジュール、詳細なお見積もりをご提案します。</p>
-                </div>
-                <div className="sd-step-icon">
-                  <span className="icon">request_quote</span>
+                <div className="sd-step-inner">
+                  <div className="sd-step-content">
+                    <p className="sd-step-num">Step 01</p>
+                    <h3>お問い合わせ・ヒアリング</h3>
+                    <p>プロジェクトの概要や課題についてお聞かせください。オンラインで詳細なヒアリングを行い、目的やご要望を深く理解します。</p>
+                  </div>
+                  <div className="sd-step-icon">
+                    <span className="icon">rate_review</span>
+                  </div>
                 </div>
               </div>
               
               <div className="sd-step">
-                <div className="sd-step-content">
-                  <p className="sd-step-num">Step 03</p>
-                  <h3>設計・開発</h3>
-                  <p>ご契約後、要件定義や設計を進めます。定期的な進捗報告とレビューを行いながら、透明性の高い開発プロセスで推進します。</p>
-                </div>
-                <div className="sd-step-icon">
-                  <span className="icon">code_blocks</span>
+                <div className="sd-step-inner">
+                  <div className="sd-step-content">
+                    <p className="sd-step-num">Step 02</p>
+                    <h3>ご提案・お見積もり</h3>
+                    <p>ヒアリング内容に基づき、最適な開発プラン、技術選定、スケジュール、詳細なお見積もりをご提案します。</p>
+                  </div>
+                  <div className="sd-step-icon">
+                    <span className="icon">request_quote</span>
+                  </div>
                 </div>
               </div>
               
-              <div className="sd-step reverse">
-                <div className="sd-step-content">
-                  <p className="sd-step-num">Step 04</p>
-                  <h3>納品・運用</h3>
-                  <p>最終テストを経て、システムを納品します。公開後の保守・運用サポートもご提供し、ビジネスの成長を継続的にご支援します。</p>
+              <div className="sd-step">
+                <div className="sd-step-inner">
+                  <div className="sd-step-content">
+                    <p className="sd-step-num">Step 03</p>
+                    <h3>設計・開発</h3>
+                    <p>ご契約後、要件定義や設計を進めます。定期的な進捗報告とレビューを行いながら、透明性の高い開発プロセスで推進します。</p>
+                  </div>
+                  <div className="sd-step-icon">
+                    <span className="icon">code_blocks</span>
+                  </div>
                 </div>
-                <div className="sd-step-icon">
-                  <span className="icon">rocket_launch</span>
+              </div>
+              
+              <div className="sd-step">
+                <div className="sd-step-inner">
+                  <div className="sd-step-content">
+                    <p className="sd-step-num">Step 04</p>
+                    <h3>納品・運用</h3>
+                    <p>最終テストを経て、システムを納品します。公開後の保守・運用サポートもご提供し、ビジネスの成長を継続的にご支援します。</p>
+                  </div>
+                  <div className="sd-step-icon">
+                    <span className="icon">rocket_launch</span>
+                  </div>
                 </div>
               </div>
             </div>
