@@ -130,11 +130,40 @@ function App() {
     return () => {
       window.removeEventListener('scroll', checkScroll);
     };
-  }, []);
+  }, [showServiceDetail]); // showServiceDetailが変更されたときにエフェクトを再実行
   
   // サービス詳細ページから戻る処理
   const handleBackToMain = () => {
     setShowServiceDetail(false);
+    
+    // セクションのvisibleクラスをリセットして、アニメーションを再実行できるようにする
+    setTimeout(() => {
+      const sections = document.querySelectorAll('.section');
+      sections.forEach((section) => {
+        section.classList.remove('visible');
+      });
+      
+      // スクロール位置をトップに戻す
+      window.scrollTo({
+        top: 0,
+        behavior: 'auto'
+      });
+      
+      // 少し遅延させてからアニメーションをチェック
+      setTimeout(() => {
+        const checkScroll = () => {
+          sections.forEach((section) => {
+            const sectionTop = section.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+            
+            if (sectionTop < windowHeight * 0.85) {
+              section.classList.add('visible');
+            }
+          });
+        };
+        checkScroll();
+      }, 100);
+    }, 0);
   };
 
   return (
@@ -208,6 +237,11 @@ function App() {
               <a href="#" className="btn primary" onClick={(e) => {
                 e.preventDefault();
                 setShowServiceDetail(true);
+                // ページトップにスクロール位置をリセット
+                window.scrollTo({
+                  top: 0,
+                  behavior: 'auto'
+                });
               }}>詳細を見る</a>
             </div>
           </section>
