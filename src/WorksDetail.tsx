@@ -8,12 +8,20 @@ interface WorksDetailProps {
 }
 
 const WorksDetail: React.FC<WorksDetailProps> = ({ onBack }) => {
-  // コンポーネントがマウントされたときにページトップにスクロール
+  // コンポーネントがマウントされたときにページトップにスクロールとタイトルアニメーション
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: 'auto'
     });
+    
+    // タイトルに少し遅れてvisibleクラスを追加
+    setTimeout(() => {
+      const titleElement = document.querySelector('.works-hero .section-header h2');
+      if (titleElement) {
+        titleElement.classList.add('visible');
+      }
+    }, 300);
   }, []);
 
   return (
@@ -23,8 +31,10 @@ const WorksDetail: React.FC<WorksDetailProps> = ({ onBack }) => {
       <main className="main">
         <div className="container">
           <section className="works-hero">
-            <h1>My Works</h1>
-            <p>これまで開発した実績をご覧ください。</p>
+            <div className="section-header">
+              <h2>WORKS</h2>
+              <p>これまでリリースした実績をご覧ください。</p>
+            </div>
           </section>
 
           <section className="works-grid">
@@ -33,7 +43,7 @@ const WorksDetail: React.FC<WorksDetailProps> = ({ onBack }) => {
               <div className="works-overlay"></div>
               <div className="works-content">
                 <p className="works-category">Mobile App</p>
-                <h3>Wetherly</h3>
+                <h3>Weatherly</h3>
                 <p>天気予報を確認できるアプリです。</p>
               </div>
             </div>

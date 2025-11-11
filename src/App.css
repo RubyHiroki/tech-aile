@@ -301,27 +301,39 @@ body {
 }
 
 .btn.primary {
-  background-color: var(--primary);
-  color: var(--bg-dark);
+  background-color: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  transition: all 0.3s ease;
 }
 
 .btn.primary:hover {
-  box-shadow: 0 10px 15px -3px rgba(56, 189, 248, 0.3);
+  background-color: var(--primary);
+  color: var(--bg-dark);
+  box-shadow: 0 10px 15px -3px rgba(56, 189, 248, 0.2);
 }
 
 .btn.secondary {
   background-color: transparent;
-  border: 1px solid var(--border-light);
-  color: var(--text-light-primary);
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  transition: all 0.3s ease;
+}
+
+.btn.secondary:hover {
+  background-color: var(--primary);
+  color: var(--bg-dark);
+  box-shadow: 0 10px 15px -3px rgba(56, 189, 248, 0.2);
 }
 
 .dark .btn.secondary {
-  border-color: var(--border-dark);
-  color: var(--text-dark-primary);
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
 .dark .btn.secondary:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--primary);
+  color: var(--bg-dark);
 }
 
 /* Sections */

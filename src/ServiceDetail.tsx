@@ -8,7 +8,7 @@ interface ServiceDetailProps {
 }
 
 const ServiceDetail: React.FC<ServiceDetailProps> = ({ onBack }) => {
-  // コンポーネントがマウントされたときにページトップにスクロールのみ実行
+  // コンポーネントがマウントされたときのアニメーション処理
   useEffect(() => {
     // ページトップにスクロール
     window.scrollTo({
@@ -16,25 +16,76 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ onBack }) => {
       behavior: 'auto'
     });
     
-    // すべての要素に最初からvisibleクラスを追加して表示する
+    // 最初のヒーローセクションだけ自動的に表示
+    const heroSection = document.querySelector('.sd-hero');
+    setTimeout(() => {
+      if (heroSection) heroSection.classList.add('visible');
+    }, 100);
+    
+    // スクロールに応じて要素を表示するための処理
     const sections = document.querySelectorAll('.sd-section');
-    const steps = document.querySelectorAll('.sd-step');
     const serviceItems = document.querySelectorAll('.sd-service-item');
+    const steps = document.querySelectorAll('.sd-step');
     
-    // すべてのセクションを表示
-    sections.forEach((section) => {
-      section.classList.add('visible');
-    });
+    // スクロールイベント最適化のための変数
+    let ticking = false;
     
-    // すべてのステップを表示
-    steps.forEach((step) => {
-      step.classList.add('visible');
-    });
+    // スクロール位置をチェックして要素を表示する関数
+    const checkScroll = () => {
+      // セクションのチェック
+      sections.forEach((section) => {
+        // すでに表示済みの場合はスキップ
+        if (section.classList.contains('visible')) return;
+        
+        const sectionTop = section.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (sectionTop < windowHeight * 0.85) {
+          section.classList.add('visible');
+          
+          // サービスセクション内のアイテムを順番に表示
+          if (section.classList.contains('sd-services')) {
+            serviceItems.forEach((item, index) => {
+              setTimeout(() => {
+                item.classList.add('visible');
+              }, 200 * (index + 1));
+            });
+          }
+          
+          // フローセクション内のステップを順番に表示
+          if (section.classList.contains('sd-flow')) {
+            steps.forEach((step, index) => {
+              setTimeout(() => {
+                step.classList.add('visible');
+              }, 200 * (index + 1));
+            });
+          }
+        }
+      });
+      
+      ticking = false;
+    };
     
-    // すべてのサービスアイテムを表示
-    serviceItems.forEach((item) => {
-      item.classList.add('visible');
-    });
+    // スクロールイベントハンドラ（パフォーマンス最適化）
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          checkScroll();
+        });
+        ticking = true;
+      }
+    };
+    
+    // 初回チェック
+    setTimeout(checkScroll, 200);
+    
+    // スクロールイベントリスナーを追加（パッシブモードで最適化）
+    window.addEventListener('scroll', onScroll, { passive: true });
+    
+    // クリーンアップ
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+    };
   }, []);
   return (
     <div className="portfolio">
@@ -91,7 +142,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ onBack }) => {
                   <div className="sd-step-content">
                     <p className="sd-step-num">Step 01</p>
                     <h3>お問い合わせ・ヒアリング</h3>
-                    <p>プロジェクトの概要や課題についてお聞かせください。オンラインで詳細なヒアリングを行い、目的やご要望を深く理解します。</p>
+                    <p>まずは本サイトのお問い合わせフォームよりご連絡ください。その後、オンライン会議で詳細なヒアリングを行い、目的やご要望を伺います。</p>
                   </div>
                   <div className="sd-step-icon">
                     <span className="icon">rate_review</span>
@@ -104,7 +155,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ onBack }) => {
                   <div className="sd-step-content">
                     <p className="sd-step-num">Step 02</p>
                     <h3>ご提案・お見積もり</h3>
-                    <p>ヒアリング内容に基づき、最適な開発プラン、技術選定、スケジュール、詳細なお見積もりをご提案します。</p>
+                    <p>ヒアリング内容に基づき、最適な開発プラン、技術選定、スケジュール、お見積もりをご提案します。</p>
                   </div>
                   <div className="sd-step-icon">
                     <span className="icon">request_quote</span>
@@ -117,7 +168,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ onBack }) => {
                   <div className="sd-step-content">
                     <p className="sd-step-num">Step 03</p>
                     <h3>設計・開発</h3>
-                    <p>ご契約後、要件定義や設計を進めます。定期的な進捗報告とレビューを行いながら、透明性の高い開発プロセスで推進します。</p>
+                    <p>ご契約後、要件定義や設計を進めます。定期的な進捗報告を行いながら、透明性高く開発プロセスを推進します。</p>
                   </div>
                   <div className="sd-step-icon">
                     <span className="icon">code_blocks</span>
@@ -130,7 +181,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ onBack }) => {
                   <div className="sd-step-content">
                     <p className="sd-step-num">Step 04</p>
                     <h3>納品・運用</h3>
-                    <p>最終テストを経て、システムを納品します。公開後の保守・運用サポートもご提供し、ビジネスの成長を継続的にご支援します。</p>
+                    <p>最終テストを経て、システムを納品します。納品後の保守・運用サポートもご提供し、ご支援いたします。</p>
                   </div>
                   <div className="sd-step-icon">
                     <span className="icon">rocket_launch</span>
