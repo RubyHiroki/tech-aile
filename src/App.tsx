@@ -3,6 +3,8 @@ import type { FormEvent } from 'react'
 import './App.css'
 import ServiceDetail from './ServiceDetail'
 import WorksDetail from './WorksDetail'
+import Header from './components/Header'
+import Footer from './components/Footer'
 
 function App() {
   // 画面表示状態
@@ -177,14 +179,7 @@ function App() {
         <WorksDetail onBack={handleBackToMain} />
       ) : (
         <div className="portfolio">
-          <header className="header">
-            <div className="container">
-              <a className="logo" href="#">
-                <span className="icon">terminal</span>
-                <h2>Tech Aile</h2>
-              </a>
-            </div>
-          </header>
+          <Header />
 
       <main className="main">
         <div className="container">
@@ -390,11 +385,7 @@ function App() {
         </div>
       </main>
 
-      <footer className="footer">
-        <div className="container">
-          <p>©Tech Aile. All Rights Reserved.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
       )}
     </>

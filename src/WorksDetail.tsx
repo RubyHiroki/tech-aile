@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import './WorksDetail.css';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 interface WorksDetailProps {
   onBack?: () => void;
@@ -16,17 +18,7 @@ const WorksDetail: React.FC<WorksDetailProps> = ({ onBack }) => {
 
   return (
     <div className="portfolio">
-      <header className="header">
-        <div className="container">
-          <a className="logo" href="#" onClick={(e) => {
-            e.preventDefault();
-            if (onBack) onBack();
-          }}>
-            <span className="icon">terminal</span>
-            <h2>Tech Aile</h2>
-          </a>
-        </div>
-      </header>
+      <Header onBack={onBack} />
 
       <main className="main">
         <div className="container">
@@ -59,11 +51,7 @@ const WorksDetail: React.FC<WorksDetailProps> = ({ onBack }) => {
         </div>
       </main>
 
-      <footer className="footer">
-        <div className="container">
-          <p>©Tech Aile. All Rights Reserved.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
