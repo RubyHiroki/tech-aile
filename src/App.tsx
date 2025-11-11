@@ -2,10 +2,12 @@ import { useEffect, useState, useCallback } from 'react'
 import type { FormEvent } from 'react'
 import './App.css'
 import ServiceDetail from './ServiceDetail'
+import WorksDetail from './WorksDetail'
 
 function App() {
-  // サービス詳細表示状態
+  // 画面表示状態
   const [showServiceDetail, setShowServiceDetail] = useState(false);
+  const [showWorksDetail, setShowWorksDetail] = useState(false);
   // スムーズスクロール関数
   const scrollToSection = useCallback((e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -130,11 +132,12 @@ function App() {
     return () => {
       window.removeEventListener('scroll', checkScroll);
     };
-  }, [showServiceDetail]); // showServiceDetailが変更されたときにエフェクトを再実行
+  }, [showServiceDetail, showWorksDetail]); // 詳細ページの表示状態が変更されたときにエフェクトを再実行
   
-  // サービス詳細ページから戻る処理
+  // 詳細ページから戻る処理
   const handleBackToMain = () => {
     setShowServiceDetail(false);
+    setShowWorksDetail(false);
     
     // セクションのvisibleクラスをリセットして、アニメーションを再実行できるようにする
     setTimeout(() => {
@@ -170,6 +173,8 @@ function App() {
     <>
       {showServiceDetail ? (
         <ServiceDetail onBack={handleBackToMain} />
+      ) : showWorksDetail ? (
+        <WorksDetail onBack={handleBackToMain} />
       ) : (
         <div className="portfolio">
           <header className="header">
@@ -187,13 +192,20 @@ function App() {
             <div className="grid-bg"></div>
             <div className="hero-content">
               <h1 className="hero-title">
-                <span className="gradient">CODE</span> THE FUTURE.
+                <span className="gradient">CODING</span> THE FUTURE.
               </h1>
               <p className="hero-text">
                 最新のWebテクノロジーを駆使し、ビジネスの成長を加速させるソリューションを提供します。
               </p>
               <div className="btn-group">
-                <a className="btn primary" href="#works" onClick={(e) => scrollToSection(e, 'works')}>実績を見る</a>
+                <a className="btn primary" href="#works" onClick={(e) => {
+                  e.preventDefault();
+                  setShowWorksDetail(true);
+                  window.scrollTo({
+                    top: 0,
+                    behavior: 'auto'
+                  });
+                }}>実績を見る</a>
                 <a className="btn secondary" href="#contact" onClick={(e) => scrollToSection(e, 'contact')}>問い合わせる</a>
               </div>
             </div>
