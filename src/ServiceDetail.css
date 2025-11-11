@@ -82,22 +82,41 @@
 /* サービスセクション */
 .sd-services {
   display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
   margin-bottom: 4rem;
 }
 
 .sd-service-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
   gap: 1.5rem;
-  padding: 1.5rem;
+  padding: 2rem;
   border-radius: 0.75rem;
   background-color: var(--surface-dark);
   border: 1px solid var(--border-dark);
   box-shadow: none;
   opacity: 1;
   transform: translateY(0);
+  width: calc(33.333% - 1.5rem);
+  min-width: 250px;
+  transition: transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform, box-shadow;
+}
+
+.sd-service-item:hover {
+  transform: translateY(-0.5rem);
+  box-shadow: 0 25px 50px -12px rgba(56, 189, 248, 0.2);
+}
+
+.sd-service-item:active {
+  transform: translateY(-0.25rem);
+  box-shadow: 0 15px 30px -12px rgba(56, 189, 248, 0.3);
+  transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 
@@ -109,10 +128,11 @@
   height: 3.5rem;
   border-radius: 0.5rem;
   border: 1px solid var(--border-dark);
-  background-color: var(--surface-dark);
+  background-color: var(--bg-dark);
   transform: scale(1);
   transition: transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: transform;
+  margin-bottom: 1rem;
 }
 
 .sd-service-item:hover .sd-service-icon {
@@ -124,8 +144,8 @@
 }
 
 .sd-service-icon .icon {
-  font-size: 2.5rem;
   color: var(--primary);
+  font-size: 2.5rem;
   transform: scale(1);
   transition: transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: transform;
@@ -141,20 +161,34 @@
 
 .sd-service-content {
   flex: 1;
+  width: 100%;
+  text-align: center;
 }
 
 .sd-service-content h3 {
-  margin-bottom: 0.5rem;
   font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
 }
 
 .sd-service-content p {
+  font-size: 1rem;
   color: var(--text-dark-secondary);
-  font-size: 0.875rem;
+  margin: 0;
 }
 
-.sd-service-arrow {
-  color: var(--primary);
+/* レスポンシブ対応 */
+@media (max-width: 992px) {
+  .sd-service-item {
+    width: calc(50% - 1rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .sd-service-item {
+    width: 100%;
+    max-width: 400px;
+  }
 }
 
 /* フローセクション - 新しいデザイン */

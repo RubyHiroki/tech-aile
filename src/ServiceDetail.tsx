@@ -53,7 +53,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ onBack }) => {
           <section className="sd-hero sd-section" id="services">
             <div className="section-header">
               <h2>SERVICES</h2>
-              <p>Webサイト制作からシステム開発、運用保守まで。高品質なソリューションをご提供します。</p>
+              <p>Webサイト制作からシステムやアプリの開発、運用保守まで。<br />高品質なソリューションをご提供します。</p>
             </div>
           </section>
 
@@ -64,10 +64,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ onBack }) => {
               </div>
               <div className="sd-service-content">
                 <h3>Webサイト制作</h3>
-                <p>モダンなデザインと最新技術を駆使し、ビジネスの顔となる魅力的で使いやすいWebサイトを制作します。集客やブランディングに貢献します。</p>
-              </div>
-              <div className="sd-service-arrow">
-                <span className="icon">arrow_forward</span>
+                <p>モダンな技術スタックを用いて、ウェブサイトやホームページを制作します。</p>
               </div>
             </div>
 
@@ -77,10 +74,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ onBack }) => {
               </div>
               <div className="sd-service-content">
                 <h3>システム開発</h3>
-                <p>業務効率化や新規事業の実現に向け、要件定義から設計、開発まで一貫してサポート。スケーラブルで堅牢なシステムを構築します。</p>
-              </div>
-              <div className="sd-service-arrow">
-                <span className="icon">arrow_forward</span>
+                <p>業務効率化のためのカスタムシステムやアプリの開発など、要件に応じた開発を行います。</p>
               </div>
             </div>
 
@@ -90,10 +84,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ onBack }) => {
               </div>
               <div className="sd-service-content">
                 <h3>システム運用・保守</h3>
-                <p>システムの安定稼働を支えるため、サーバー監視、定期メンテナンス、障害対応などを提供。ビジネスの継続性を確保します。</p>
-              </div>
-              <div className="sd-service-arrow">
-                <span className="icon">arrow_forward</span>
+                <p>導入後のシステムの運用・保守を行います。</p>
               </div>
             </div>
           </section>
