@@ -10,20 +10,70 @@ interface WorksDetailProps {
 }
 
 const WorksDetail: React.FC<WorksDetailProps> = ({ onBack }) => {
-  // コンポーネントがマウントされたときにページトップにスクロールとタイトルアニメーション
+  // コンポーネントがマウントされたときにページトップにスクロールとアニメーション
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: 'auto'
     });
     
-    // タイトルに少し遅れてvisibleクラスを追加
+    // ヒーローセクションのみ最初から表示
     setTimeout(() => {
       const titleElement = document.querySelector('.works-hero .section-header h2');
       if (titleElement) {
         titleElement.classList.add('visible');
       }
     }, 300);
+    
+    // スクロールに応じて要素を表示するための設定
+    const worksItems = document.querySelectorAll('.works-item');
+    const worksGrid = document.querySelector('.works-grid');
+    
+    // スクロールイベント最適化のための変数
+    let ticking = false;
+    
+    // スクロール位置をチェックして要素を表示する関数
+    const checkScroll = () => {
+      // 作品グリッドのチェック
+      if (worksGrid) {
+        const gridTop = worksGrid.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (gridTop < windowHeight * 0.85) {
+          // グリッドが表示範囲に入ったら、作品アイテムを順番に表示
+          worksItems.forEach((item, index) => {
+            if (!item.classList.contains('visible')) {
+              setTimeout(() => {
+                item.classList.add('visible');
+              }, 200 * (index + 1)); // 200msずつ遅延
+            }
+          });
+        }
+      }
+      
+      ticking = false;
+    };
+    
+    // スクロールイベントハンドラ（パフォーマンス最適化）
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          checkScroll();
+        });
+        ticking = true;
+      }
+    };
+    
+    // 初回チェック
+    setTimeout(checkScroll, 200);
+    
+    // スクロールイベントリスナーを追加（パッシブモードで最適化）
+    window.addEventListener('scroll', onScroll, { passive: true });
+    
+    // クリーンアップ
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+    };
   }, []);
 
   return (
