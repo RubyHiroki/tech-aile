@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import './WorksDetail.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import weatherlyImage from './assets/images/weatherly.jpg';
+import homeChefImage from './assets/images/homechef.jpg';
 
 interface WorksDetailProps {
   onBack?: () => void;
@@ -39,7 +41,7 @@ const WorksDetail: React.FC<WorksDetailProps> = ({ onBack }) => {
 
           <section className="works-grid">
             <div className="works-item">
-              <div className="works-image" style={{backgroundImage: `url("https://lh3.googleusercontent.com/aida-public/AB6AXuCsYykj6jrkwZlVOwxZtQQFE5GeGbC4mu8VHKAfWOtJKgPZu9uGsQhaG-lAETPTeYfkULZgR0ExnayI7UoBHo7NezAOPTsqxmsodNDu_dXMXhjRgq3EofFjH9ggIwW8dVbvb5PZvWO2SoFUbTfFYRbKc8lAxHQ3dm1D7kq04Kv6R6VTotU1Is61dIvyM04RBcFwzpl3iHvzkpaywz9pj2KM7h7J8eLoh0zMm408CNb9L9aM976YyIuSwm0AWUyMKlibt0VK9Hdmyiw")`}}></div>
+              <div className="works-image" style={{backgroundImage: `url(${weatherlyImage})`}}></div>
               <div className="works-overlay"></div>
               <div className="works-content">
                 <p className="works-category">Mobile App</p>
@@ -49,7 +51,7 @@ const WorksDetail: React.FC<WorksDetailProps> = ({ onBack }) => {
             </div>
 
             <div className="works-item">
-              <div className="works-image" style={{backgroundImage: `url("https://lh3.googleusercontent.com/aida-public/AB6AXuAcyC01WrgVVMR8tFm27tDxG_fsf11b68vnzateyz430FS7NcSJgEs3BU1zb4IUGch1eF34CZHRmOsiT3cdqB6BypebmrtjSnH3e3Z080n4F6Lquo4Hdr74InPt-oCAZWUlDD6NqtBUhszSg0t3-hxc4N4xdBgCQvtcrJ8-U9EwMFCBJYseW9M0XvO0rWNu1zRf65_0PPGU-HSpf2sFhP6k2xpO9M6BYKLwrioaT45DG3Ar5EMfrwIweZ94U-1j8n3zpMucasiKoqM")`}}></div>
+              <div className="works-image" style={{backgroundImage: `url(${homeChefImage})`}}></div>
               <div className="works-overlay"></div>
               <div className="works-content">
                 <p className="works-category">Mobile App</p>
