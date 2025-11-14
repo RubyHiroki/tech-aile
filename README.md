@@ -74,8 +74,40 @@ npm run dev:all
 
 ## デプロイ
 
+### ビルド
+
 ```bash
 npm run build
 ```
 
 `dist`ディレクトリに生成されたファイルをホスティングサービス（Netlify、Vercel、GitHub Pagesなど）にデプロイします。
+
+### Vercelへのデプロイ
+
+このプロジェクトはVercelへの直接デプロイに対応しています。
+
+1. Vercelアカウントを作成し、GitHubリポジトリと連携します。
+2. Vercelダッシュボードで新しいプロジェクトを作成し、リポジトリを選択します。
+3. 以下の環境変数を設定します：
+
+| 環境変数名 | 説明 |
+|------------|------|
+| `RESEND_API_KEY` | ResendのAPIキー（[Resend](https://resend.com/)から取得） |
+| `RECEIVER_EMAIL` | お問い合わせを受け取るメールアドレス |
+
+4. デプロイを実行します。
+
+### お問い合わせフォームの設定
+
+Vercelでお問い合わせフォームを動作させるには：
+
+1. [Resend](https://resend.com/)にサインアップしてAPIキーを取得します。
+2. Vercelダッシュボードで環境変数`RESEND_API_KEY`と`RECEIVER_EMAIL`を設定します。
+3. （推奨）Resendでドメインを検証し、`api/send.js`の`from`アドレスを検証済みドメインのメールアドレスに更新します。
+
+```js
+// api/send.js内のfromアドレスを変更
+from: 'contact@yourdomain.com', // 検証済みドメインのアドレス
+```
+
+注意：Resendの無料プランでは、検証済みドメインからのメール送信のみが許可されています。
