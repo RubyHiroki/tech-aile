@@ -95,7 +95,10 @@ npm run build
 | `RESEND_API_KEY` | ResendのAPIキー（[Resend](https://resend.com/)から取得） |
 | `RECEIVER_EMAIL` | お問い合わせを受け取るメールアドレス |
 
-4. デプロイを実行します。
+4. フレームワークプリセットとして「Vite」を選択します。
+5. ビルドコマンドは自動的に`npm run build`が設定されますが、必要に応じて`npm run vercel-build`に変更できます。
+6. 出力ディレクトリは`dist`のままにします。
+7. デプロイを実行します。
 
 ### お問い合わせフォームの設定
 
@@ -110,4 +113,6 @@ Vercelでお問い合わせフォームを動作させるには：
 from: 'contact@yourdomain.com', // 検証済みドメインのアドレス
 ```
 
-注意：Resendの無料プランでは、検証済みドメインからのメール送信のみが許可されています。
+注意：
+- Resendの無料プランでは、検証済みドメインからのメール送信のみが許可されています。
+- Vercelで警告メッセージ「WARN! Due to `builds` existing in your configuration file...」が表示される場合は、最新の`vercel.json`を使用していることを確認してください。このプロジェクトでは、`builds`セクションの代わりに`rewrites`を使用する簡素化された設定を採用しています。
