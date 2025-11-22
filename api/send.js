@@ -1,7 +1,11 @@
 import { Resend } from 'resend';
 
-// Resend APIキーの初期化
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Resend APIキーの初期化（APIキーが存在しない場合はエラーログを出力）
+const resendApiKey = process.env.RESEND_API_KEY;
+if (!resendApiKey) {
+  console.error('RESEND_API_KEY environment variable is not set');
+}
+const resend = new Resend(resendApiKey);
 
 export default async function handler(req, res) {
   // CORSヘッダーを設定
@@ -35,10 +39,22 @@ export default async function handler(req, res) {
       });
     }
 
+    // 受信者メールアドレスの確認
+    const receiverEmail = process.env.RECEIVER_EMAIL;
+    if (!receiverEmail) {
+      console.error('RECEIVER_EMAIL environment variable is not set');
+      return res.status(500).json({ 
+        success: false, 
+        error: '受信者メールアドレスが設定されていません。環境変数を確認してください。'
+      });
+    }
+
+    console.log('Sending email to:', receiverEmail);
+    
     // Resend APIを使用してメール送信
     const { data, error } = await resend.emails.send({
       from: 'onboarding@resend.dev', // 検証済みドメインに変更することをお勧めします
-      to: process.env.RECEIVER_EMAIL,
+      to: receiverEmail,
       subject: `お問い合わせ: ${name}様より`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
@@ -72,7 +88,11 @@ export default async function handler(req, res) {
     return res.status(500).json({ 
       success: false, 
       error: 'メール送信に失敗しました',
-      details: error.message
+      details: error.message,
+      env: {
+        apiKeyExists: !!process.env.RESEND_API_KEY,
+        receiverEmailExists: !!process.env.RECEIVER_EMAIL
+      }
     });
   }
 }
