@@ -1,9 +1,9 @@
 import { Resend } from 'resend';
 
 // Resend APIキーの初期化（APIキーが存在しない場合はエラーログを出力）
-const resendApiKey = process.env.RESEND_API_KEY;
+const resendApiKey = process.env.VITE_RESEND_API_KEY;
 if (!resendApiKey) {
-  console.error('RESEND_API_KEY environment variable is not set');
+  console.error('VITE_RESEND_API_KEY environment variable is not set');
 }
 const resend = new Resend(resendApiKey);
 
@@ -40,9 +40,9 @@ export default async function handler(req, res) {
     }
 
     // 受信者メールアドレスの確認
-    const receiverEmail = process.env.RECEIVER_EMAIL;
+    const receiverEmail = process.env.VITE_RECEIVER_EMAIL;
     if (!receiverEmail) {
-      console.error('RECEIVER_EMAIL environment variable is not set');
+      console.error('VITE_RECEIVER_EMAIL environment variable is not set');
       return res.status(500).json({ 
         success: false, 
         error: '受信者メールアドレスが設定されていません。環境変数を確認してください。'
@@ -90,8 +90,8 @@ export default async function handler(req, res) {
       error: 'メール送信に失敗しました',
       details: error.message,
       env: {
-        apiKeyExists: !!process.env.RESEND_API_KEY,
-        receiverEmailExists: !!process.env.RECEIVER_EMAIL
+        apiKeyExists: !!process.env.VITE_RESEND_API_KEY,
+        receiverEmailExists: !!process.env.VITE_RECEIVER_EMAIL
       }
     });
   }

@@ -26,7 +26,7 @@ npm install
 プロジェクトのルートに`.env`ファイルを作成し、以下の内容を追加します：
 ```
 # 開発用メールサーバー設定
-RECEIVER_EMAIL=your-email@example.com
+VITE_RECEIVER_EMAIL=your-email@example.com
 
 # SMTPサーバー設定（オプション）
 # SMTP_HOST=smtp.example.com
@@ -92,8 +92,8 @@ npm run build
 
 | 環境変数名 | 説明 |
 |------------|------|
-| `RESEND_API_KEY` | ResendのAPIキー（[Resend](https://resend.com/)から取得） |
-| `RECEIVER_EMAIL` | お問い合わせを受け取るメールアドレス |
+| `VITE_RESEND_API_KEY` | ResendのAPIキー（[Resend](https://resend.com/)から取得） |
+| `VITE_RECEIVER_EMAIL` | お問い合わせを受け取るメールアドレス |
 
 4. フレームワークプリセットとして「Vite」を選択します。
 5. ビルドコマンドは自動的に`npm run build`が設定されますが、必要に応じて`npm run vercel-build`に変更できます。
@@ -105,7 +105,7 @@ npm run build
 Vercelでお問い合わせフォームを動作させるには：
 
 1. [Resend](https://resend.com/)にサインアップしてAPIキーを取得します。
-2. Vercelダッシュボードで環境変数`RESEND_API_KEY`と`RECEIVER_EMAIL`を設定します。
+2. Vercelダッシュボードで環境変数`VITE_RESEND_API_KEY`と`VITE_RECEIVER_EMAIL`を設定します。
 3. （推奨）Resendでドメインを検証し、`api/send.js`の`from`アドレスを検証済みドメインのメールアドレスに更新します。
 
 ```js

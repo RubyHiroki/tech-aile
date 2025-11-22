@@ -114,7 +114,7 @@ app.post('/api/send', async (req, res) => {
     // メールオプションの設定
     const mailOptions = {
       from: from || 'noreply@example.com',
-      to: to || process.env.RECEIVER_EMAIL || 'recipient@example.com',
+      to: to || process.env.VITE_RECEIVER_EMAIL || 'recipient@example.com',
       subject: subject || `お問い合わせ: ${name}様より`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">

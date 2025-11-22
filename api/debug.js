@@ -15,12 +15,12 @@ export default async function handler(req, res) {
   }
 
   // 環境変数の確認（APIキーは部分的に隠す）
-  const apiKeyExists = process.env.RESEND_API_KEY ? true : false;
-  const apiKeyHint = process.env.RESEND_API_KEY 
-    ? `${process.env.RESEND_API_KEY.substring(0, 3)}...${process.env.RESEND_API_KEY.substring(process.env.RESEND_API_KEY.length - 3)}` 
+  const apiKeyExists = process.env.VITE_RESEND_API_KEY ? true : false;
+  const apiKeyHint = process.env.VITE_RESEND_API_KEY 
+    ? `${process.env.VITE_RESEND_API_KEY.substring(0, 3)}...${process.env.VITE_RESEND_API_KEY.substring(process.env.VITE_RESEND_API_KEY.length - 3)}` 
     : 'not set';
   
-  const receiverEmailExists = process.env.RECEIVER_EMAIL ? true : false;
+  const receiverEmailExists = process.env.VITE_RECEIVER_EMAIL ? true : false;
   
   // レスポンスを返す
   return res.status(200).json({
@@ -34,7 +34,7 @@ export default async function handler(req, res) {
       },
       receiverEmail: {
         exists: receiverEmailExists,
-        value: process.env.RECEIVER_EMAIL || 'not set'
+        value: process.env.VITE_RECEIVER_EMAIL || 'not set'
       }
     }
   });
