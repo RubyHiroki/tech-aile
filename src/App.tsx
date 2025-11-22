@@ -5,6 +5,8 @@ import ServiceDetail from './ServiceDetail'
 import WorksDetail from './WorksDetail'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import EnvDebug from './components/EnvDebug'
+import './components/EnvDebug.css'
 import emailjs from '@emailjs/browser'
 
 function App() {
@@ -50,10 +52,10 @@ function App() {
       [fieldName]: value
     }));
     
-    console.log('Input changed:', name, value, fieldName);
+    // デバッグ用のログは削除
   };
 
-  // Form submission handler - EmailJSを使用
+  // Form submission handler - EmailJSのSMTPを使用
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormStatus('submitting');
@@ -68,24 +70,33 @@ function App() {
     try {
       // EmailJSの設定をVercelの環境変数から取得
       const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const smtpServiceId = import.meta.env.VITE_EMAILJS_SMTP_SERVICE_ID; // SMTP専用サービスID
       const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
       const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
       
-      if (!serviceId || !templateId || !publicKey) {
+      // 優先的にSMTPサービスIDを使用し、なければ通常のサービスIDを使用
+      const effectiveServiceId = smtpServiceId || serviceId;
+      
+      if (!effectiveServiceId || !templateId || !publicKey) {
         throw new Error('EmailJSの設定が不足しています。Vercelの環境変数を確認してください。');
       }
 
       // EmailJSの初期化（本番環境でのCORS問題対策として）
       emailjs.init(publicKey);
       
-      // EmailJSを使用してメール送信
-      const result = await emailjs.sendForm(
-        serviceId,
+      // フォームデータを確認（デバッグ用）
+      console.log('送信フォームデータ:', {
+        name: form.current.user_name?.value,
+        email: form.current.user_email?.value,
+        message: form.current.message?.value
+      });
+      
+      // EmailJSを使用してSMTP経由でメール送信
+      await emailjs.sendForm(
+        effectiveServiceId, // SMTPサービスIDを優先使用
         templateId,
         form.current
       );
-
-      console.log('EmailJS送信結果:', result.text);
       
       setFormStatus('success');
       setFormData({ name: '', email: '', message: '' });
@@ -94,7 +105,16 @@ function App() {
       setFormStatus('error');
       
       if (error instanceof Error) {
-        setErrorMessage('送信に失敗しました: ' + error.message);
+        // SMTP関連のエラーをより詳細に表示
+        if (error.message.includes('SMTP')) {
+          setErrorMessage('SMTPサーバーエラー: ' + error.message);
+        } else if (error.message.includes('authentication') || error.message.includes('認証')) {
+          setErrorMessage('SMTP認証エラー: メールサーバーのユーザー名またはパスワードを確認してください');
+        } else if (error.message.includes('timeout') || error.message.includes('timed out')) {
+          setErrorMessage('タイムアウトエラー: SMTPサーバーに接続できませんでした');
+        } else {
+          setErrorMessage('送信に失敗しました: ' + error.message);
+        }
       } else {
         setErrorMessage('送信に失敗しました。後ほど再度お試しください。');
       }
@@ -377,6 +397,9 @@ function App() {
       </main>
 
       <Footer />
+      
+      {/* 環境変数デバッグ表示 */}
+      <EnvDebug />
     </div>
       )}
     </>
