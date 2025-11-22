@@ -36,10 +36,21 @@ function App() {
   // Form input handlers
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    // フォームのname属性とformDataのプロパティ名のマッピング
+    const fieldMapping: Record<string, string> = {
+      'user_name': 'name',
+      'user_email': 'email',
+      'message': 'message'
+    };
+    
+    // マッピングに基づいてformDataを更新
+    const fieldName = fieldMapping[name] || name;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [fieldName]: value
     }));
+    
+    console.log('Input changed:', name, value, fieldName);
   };
 
   // Form submission handler - EmailJSを使用
