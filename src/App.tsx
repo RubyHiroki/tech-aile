@@ -5,7 +5,6 @@ import ServiceDetail from './ServiceDetail'
 import WorksDetail from './WorksDetail'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import EmailJSDebug from './components/EmailJSDebug'
 import emailjs from '@emailjs/browser'
 
 function App() {
@@ -67,24 +66,13 @@ function App() {
     }
 
     try {
-      console.log('EmailJSでフォーム送信中...');
-      
-      // EmailJSのサービスID、テンプレートID、公開キーを環境変数から取得
+      // EmailJSの設定をVercelの環境変数から取得
       const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
       const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
       const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
       
-      // 環境変数の値をコンソールに出力（デバッグ用）
-      console.log('環境変数:', {
-        isDev: import.meta.env.DEV,
-        serviceId,
-        templateId,
-        publicKeyExists: !!publicKey,
-        publicKeyHint: publicKey ? `${publicKey.substring(0, 3)}...` : 'not set'
-      });
-      
       if (!serviceId || !templateId || !publicKey) {
-        throw new Error('EmailJSの設定が不足しています。環境変数を確認してください。');
+        throw new Error('EmailJSの設定が不足しています。Vercelの環境変数を確認してください。');
       }
 
       // EmailJSの初期化（本番環境でのCORS問題対策として）
@@ -102,55 +90,14 @@ function App() {
       setFormStatus('success');
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
-      console.error('Error sending email with EmailJS:', error);
+      console.error('Error sending email:', error);
       setFormStatus('error');
       
-      // エラーの詳細情報をコンソールに出力
-      console.log('エラー詳細:', error);
-      
       if (error instanceof Error) {
-        const errorMsg = error.message;
-        
-        // エラーメッセージの詳細化
-        if (errorMsg.includes('service_id') || errorMsg.includes('template_id')) {
-          setErrorMessage(`EmailJSの設定エラー: サービスIDまたはテンプレートIDが無効です (${errorMsg})`);
-        } 
-        else if (errorMsg.includes('user_id') || errorMsg.includes('public_key')) {
-          setErrorMessage(`EmailJSの認証エラー: 公開キーが無効です (${errorMsg})`);
-        }
-        else if (errorMsg.includes('network') || errorMsg.includes('NetworkError') || errorMsg.includes('Failed to fetch')) {
-          setErrorMessage(`ネットワークエラー: インターネット接続を確認してください (${errorMsg})`);
-        }
-        else if (errorMsg.includes('CORS') || errorMsg.includes('cross-origin')) {
-          setErrorMessage(`CORSエラー: オリジン間リクエストが拒否されました (${errorMsg})`);
-        }
-        else {
-          setErrorMessage(`送信エラー: ${errorMsg}`);
-        }
+        setErrorMessage('送信に失敗しました: ' + error.message);
       } else {
-        // エラーオブジェクトの詳細を文字列化して表示
-        const errorString = String(error);
-        console.log('エラー文字列化:', errorString);
-        
-        // エラーの種類に応じたメッセージを設定
-        if (errorString.includes('NetworkError') || errorString.includes('network')) {
-          setErrorMessage('ネットワークエラー: インターネット接続を確認してください');
-        } else if (errorString.includes('timeout') || errorString.includes('timed out')) {
-          setErrorMessage('タイムアウトエラー: サーバーの応答がありません');
-        } else if (errorString.includes('CORS') || errorString.includes('cross-origin')) {
-          setErrorMessage('CORSエラー: クロスオリジンリクエストが拒否されました');
-        } else {
-          // 詳細なエラー情報を含める
-          setErrorMessage(`送信エラー: ${errorString}`);
-        }
+        setErrorMessage('送信に失敗しました。後ほど再度お試しください。');
       }
-      
-      // 環境情報を出力
-      console.log('環境情報:', {
-        isDevelopment: import.meta.env.DEV,
-        mode: import.meta.env.MODE,
-        baseUrl: import.meta.env.BASE_URL,
-      });
     }
   };
 
@@ -422,9 +369,6 @@ function App() {
                   >
                     {formStatus === 'submitting' ? '送信中...' : '送信する'}
                   </button>
-                  
-                  {/* EmailJS設定デバッグコンポーネント */}
-                  <EmailJSDebug />
                 </div>
               </form>
             </div>
