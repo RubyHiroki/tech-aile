@@ -5,8 +5,6 @@ import ServiceDetail from './ServiceDetail'
 import WorksDetail from './WorksDetail'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import EnvDebug from './components/EnvDebug'
-import './components/EnvDebug.css'
 import emailjs from '@emailjs/browser'
 
 function App() {
@@ -83,13 +81,6 @@ function App() {
 
       // EmailJSの初期化（本番環境でのCORS問題対策として）
       emailjs.init(publicKey);
-      
-      // フォームデータを確認（デバッグ用）
-      console.log('送信フォームデータ:', {
-        name: form.current.user_name?.value,
-        email: form.current.user_email?.value,
-        message: form.current.message?.value
-      });
       
       // EmailJSを使用してSMTP経由でメール送信
       await emailjs.sendForm(
@@ -397,9 +388,6 @@ function App() {
       </main>
 
       <Footer />
-      
-      {/* 環境変数デバッグ表示 */}
-      <EnvDebug />
     </div>
       )}
     </>
