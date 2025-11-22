@@ -1,10 +1,11 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import type { FormEvent } from 'react'
 import './App.css'
 import ServiceDetail from './ServiceDetail'
 import WorksDetail from './WorksDetail'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import emailjs from '@emailjs/browser'
 
 function App() {
   // 画面表示状態
@@ -28,9 +29,12 @@ function App() {
   });
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  
+  // フォームのref
+  const form = useRef<HTMLFormElement>(null);
 
   // Form input handlers
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -38,71 +42,47 @@ function App() {
     }));
   };
 
-  // Form submission handler
+  // Form submission handler - EmailJSを使用
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormStatus('submitting');
     setErrorMessage('');
 
+    if (!form.current) {
+      setFormStatus('error');
+      setErrorMessage('フォームの参照エラーが発生しました。');
+      return;
+    }
+
     try {
-      console.log('フォーム送信中...', formData);
+      console.log('EmailJSでフォーム送信中...');
       
-      // 開発環境では開発用メールサーバーのエンドポイントを使用
-      const apiUrl = import.meta.env.DEV 
-        ? 'http://localhost:3001/api/send' 
-        : '/api/send';
+      // EmailJSのサービスID、テンプレートID、公開キーを環境変数から取得
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
       
-      console.log('API URL:', apiUrl);
-      
-      const requestData = {
-        from: 'onboarding@resend.dev',
-        to: import.meta.env.VITE_RECEIVER_EMAIL,
-        subject: `お問い合わせ: ${formData.name}様より`,
-        name: formData.name,
-        email: formData.email,
-        message: formData.message,
-      };
-      
-      // API endpoint would be created separately
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify(requestData),
-        // 開発環境ではCORSモードを設定
-        ...(import.meta.env.DEV ? { mode: 'cors' } : {})
-      });
-
-      console.log('レスポンス受信:', response.status, response.statusText);
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('エラーレスポンス:', errorText);
-        throw new Error('送信に失敗しました。後ほど再度お試しください。');
-      }
-      
-      // レスポンスのJSONパースを試みる
-      try {
-        const responseData = await response.json();
-        console.log('レスポンスデータ:', responseData);
-      } catch (parseError) {
-        console.warn('JSONパースエラー:', parseError);
-        // JSONパースに失敗しても処理を続行
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error('EmailJSの設定が不足しています。環境変数を確認してください。');
       }
 
+      // EmailJSを使用してメール送信
+      const result = await emailjs.sendForm(
+        serviceId,
+        templateId,
+        form.current,
+        publicKey
+      );
+
+      console.log('EmailJS送信結果:', result.text);
+      
       setFormStatus('success');
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error('Error sending email with EmailJS:', error);
       setFormStatus('error');
       
-      // エラーメッセージの詳細化
-      if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
-        console.error('ネットワークエラー: 開発用メールサーバーに接続できません');
-        setErrorMessage('開発用メールサーバーに接続できません。サーバーが起動しているか確認してください。');
-      } else if (error instanceof Error) {
+      if (error instanceof Error) {
         setErrorMessage(error.message);
       } else {
         setErrorMessage('送信に失敗しました。後ほど再度お試しください。');
@@ -320,15 +300,15 @@ function App() {
               </p>
             </div>
             <div className="contact-form">
-              <form onSubmit={handleSubmit}>
+              <form ref={form} onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label htmlFor="name">お名前</label>
                   <input 
                     type="text" 
                     id="name" 
-                    name="name" 
+                    name="user_name" 
                     value={formData.name}
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                     required 
                     disabled={formStatus === 'submitting'}
                   />
@@ -338,9 +318,9 @@ function App() {
                   <input 
                     type="email" 
                     id="email" 
-                    name="email" 
+                    name="user_email" 
                     value={formData.email}
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                     required 
                     disabled={formStatus === 'submitting'}
                   />
@@ -352,7 +332,7 @@ function App() {
                     name="message" 
                     rows={4} 
                     value={formData.message}
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                     required
                     disabled={formStatus === 'submitting'}
                   ></textarea>
