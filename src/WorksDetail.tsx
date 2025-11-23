@@ -96,7 +96,7 @@ const WorksDetail: React.FC<WorksDetailProps> = ({ onBack }) => {
               <div className="works-content">
                 <p className="works-category">Mobile App</p>
                 <h3>Weatherly</h3>
-                <p>天気予報を確認できるアプリです。</p>
+                <p>天気予報を確認.</p>
               </div>
             </div>
 
@@ -106,7 +106,7 @@ const WorksDetail: React.FC<WorksDetailProps> = ({ onBack }) => {
               <div className="works-content">
                 <p className="works-category">Mobile App</p>
                 <h3>Home Chef</h3>
-                <p>家庭にある食材からAIが献立を提案してくれるアプリです。</p>
+                <p>家庭にある食材からAIが献立を提案.</p>
               </div>
             </div>
           </section>

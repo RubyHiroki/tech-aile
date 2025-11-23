@@ -53,6 +53,21 @@ function App() {
     // デバッグ用のログは削除
   };
 
+  // EmailJSの設定を確認する関数
+  const checkEmailJSConfig = () => {
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const smtpServiceId = import.meta.env.VITE_EMAILJS_SMTP_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    
+    return {
+      isValid: !!serviceId && !!templateId && !!publicKey,
+      effectiveServiceId: smtpServiceId || serviceId,
+      templateId,
+      publicKey
+    };
+  };
+
   // Form submission handler - EmailJSのSMTPを使用
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -66,17 +81,11 @@ function App() {
     }
 
     try {
-      // EmailJSの設定をVercelの環境変数から取得
-      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-      const smtpServiceId = import.meta.env.VITE_EMAILJS_SMTP_SERVICE_ID; // SMTP専用サービスID
-      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+      // EmailJSの設定を確認
+      const { isValid, effectiveServiceId, templateId, publicKey } = checkEmailJSConfig();
       
-      // 優先的にSMTPサービスIDを使用し、なければ通常のサービスIDを使用
-      const effectiveServiceId = smtpServiceId || serviceId;
-      
-      if (!effectiveServiceId || !templateId || !publicKey) {
-        throw new Error('EmailJSの設定が不足しています。Vercelの環境変数を確認してください。');
+      if (!isValid) {
+        throw new Error('EmailJSの設定が不足しています。環境変数を確認してください。');
       }
 
       // EmailJSの初期化（本番環境でのCORS問題対策として）
@@ -92,19 +101,17 @@ function App() {
       setFormStatus('success');
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
-      console.error('Error sending email:', error);
       setFormStatus('error');
       
       if (error instanceof Error) {
-        // SMTP関連のエラーをより詳細に表示
         if (error.message.includes('SMTP')) {
-          setErrorMessage('SMTPサーバーエラー: ' + error.message);
+          setErrorMessage('メール送信に失敗しました。SMTP設定を確認してください。');
         } else if (error.message.includes('authentication') || error.message.includes('認証')) {
-          setErrorMessage('SMTP認証エラー: メールサーバーのユーザー名またはパスワードを確認してください');
+          setErrorMessage('メール送信に失敗しました。認証情報を確認してください。');
         } else if (error.message.includes('timeout') || error.message.includes('timed out')) {
-          setErrorMessage('タイムアウトエラー: SMTPサーバーに接続できませんでした');
+          setErrorMessage('メール送信がタイムアウトしました。後ほど再度お試しください。');
         } else {
-          setErrorMessage('送信に失敗しました: ' + error.message);
+          setErrorMessage('送信に失敗しました。後ほど再度お試しください。');
         }
       } else {
         setErrorMessage('送信に失敗しました。後ほど再度お試しください。');
