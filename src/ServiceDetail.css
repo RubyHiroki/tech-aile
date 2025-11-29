@@ -2,7 +2,7 @@
 /* サービス詳細ページのスタイル */
 /* ヘッダーとフッターはApp.cssで定義されているスタイルを使用 */
 
-/* アニメーション */
+/* アニメーション - App.cssと同じ定義を使用 */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -108,16 +108,17 @@
   text-align: center;
   gap: 1.5rem;
   padding: 2rem;
-  border-radius: 0.75rem;
+  border-radius: 1rem;
   background-color: var(--surface-dark);
   border: 1px solid var(--border-dark);
+  border-left: 4px solid transparent;
   box-shadow: none;
   opacity: 0;
   transform: translateY(20px);
   width: calc(33.333% - 1.5rem);
   min-width: 250px;
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out, box-shadow 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  will-change: opacity, transform, box-shadow;
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out, box-shadow 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-left 0.3s ease;
+  will-change: opacity, transform, box-shadow, border-left;
 }
 
 .sd-service-item.visible {
@@ -138,14 +139,16 @@
 }
 
 .sd-service-item:hover {
-  transform: translateY(-0.5rem);
-  box-shadow: 0 25px 50px -12px rgba(56, 189, 248, 0.2);
+  transform: translateY(-0.5rem) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(248, 164, 132, 0.25);
+  border-left: 4px solid var(--primary);
 }
 
 .sd-service-item:active {
-  transform: translateY(-0.25rem);
-  box-shadow: 0 15px 30px -12px rgba(56, 189, 248, 0.3);
-  transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateY(-0.25rem) scale(1.01);
+  box-shadow: 0 15px 30px -12px rgba(248, 164, 132, 0.35);
+  border-left: 4px solid var(--primary-dark);
+  transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-left 0.1s ease;
 }
 
 
@@ -153,19 +156,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 0.5rem;
-  border: 1px solid var(--border-dark);
-  background-color: var(--bg-dark);
+  width: 4rem;
+  height: 4rem;
+  border-radius: 1rem;
+  border: none;
+  background-color: rgba(248, 164, 132, 0.1);
   transform: scale(1);
-  transition: transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  will-change: transform;
+  transition: transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), background-color 0.3s ease;
+  will-change: transform, background-color;
   margin-bottom: 1rem;
 }
 
 .sd-service-item:hover .sd-service-icon {
   transform: scale(1.1);
+  background-color: rgba(248, 164, 132, 0.2);
 }
 
 .sd-service-icon:active {
@@ -229,7 +233,7 @@
 .sd-flow h2 {
   font-size: 2rem;
   margin-bottom: 4rem;
-  background: linear-gradient(to right, #38BDF8, #818CF8);
+  background: linear-gradient(to right, #f8a484, #f884b3);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -242,14 +246,15 @@
   bottom: -0.5rem;
   left: 50%;
   width: 0;
-  height: 3px;
-  background: var(--primary);
+  height: 4px;
+  background: linear-gradient(to right, var(--primary), var(--primary-light));
+  border-radius: 2px;
   transform: translateX(-50%);
   transition: width 1s ease 0.5s;
 }
 
 .sd-flow.visible h2::after {
-  width: 60px;
+  width: 80px;
 }
 
 /* 新しいタイムラインスタイル */
@@ -360,7 +365,7 @@
 }
 
 .sd-step-content h3 {
-  color: white;
+  color: var(--text-dark-primary);
   font-size: 1.25rem;
   font-weight: bold;
   margin-bottom: 0.75rem;
@@ -382,6 +387,7 @@
   border-radius: 50%;
   background-color: var(--primary);
   border: 4px solid var(--bg-dark);
+  box-shadow: 0 4px 12px rgba(248, 164, 132, 0.3);
   z-index: 1;
   margin: 1rem 0;
   position: relative;

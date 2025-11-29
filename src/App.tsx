@@ -38,8 +38,8 @@ function App() {
     const { name, value } = e.target;
     // フォームのname属性とformDataのプロパティ名のマッピング
     const fieldMapping: Record<string, string> = {
-      'user_name': 'name',
-      'user_email': 'email',
+      'user_name': 'user_name',
+      'user_email': 'user_email',
       'message': 'message'
     };
     
@@ -188,19 +188,16 @@ function App() {
         <WorksDetail onBack={handleBackToMain} />
       ) : (
         <div className="portfolio">
+          <div className="grid-bg"></div>
           <Header />
 
       <main className="main">
         <div className="container">
           <section className="hero">
-            <div className="grid-bg"></div>
             <div className="hero-content">
               <h1 className="hero-title">
                 <span className="gradient">CODING</span> THE FUTURE.
               </h1>
-              <p className="hero-text">
-                最新のWebテクノロジーを駆使し、ビジネスの成長を加速させるソリューションを提供します。
-              </p>
               <div className="btn-group">
                 <a className="btn primary" href="#works" onClick={(e) => {
                   e.preventDefault();
@@ -210,7 +207,7 @@ function App() {
                     behavior: 'auto'
                   });
                 }}>実績を見る</a>
-                <a className="btn secondary" href="#contact" onClick={(e) => scrollToSection(e, 'contact')}>問い合わせる</a>
+                <a className="btn primary" href="#contact" onClick={(e) => scrollToSection(e, 'contact')}>問い合わせる</a>
               </div>
             </div>
           </section>

@@ -1,16 +1,20 @@
 /* Base Styles */
 :root {
-  --primary: #38BDF8;
+  --primary: #f8a484; /* サーモンピンク - メインカラー */
+  --primary-light: #ffcdb8; /* ライトサーモン - 明るいアクセント */
+  --primary-dark: #e07e5f; /* ダークサーモン - 濃いアクセント */
+  --secondary: #84c7f8; /* ライトブルー - セカンダリカラー */
+  --accent: #f884b3; /* ピンク - アクセントカラー */
   --bg-light: #FFFFFF;
-  --bg-dark: #020617;
-  --surface-light: #F8FAFC;
-  --surface-dark: #0F172A;
-  --text-light-primary: #0F172A;
-  --text-light-secondary: #64748B;
-  --text-dark-primary: #F8FAFC;
-  --text-dark-secondary: #94A3B8;
-  --border-light: #E2E8F0;
-  --border-dark: #334155;
+  --bg-dark: #1f1a17;
+  --surface-light: #FFF8F5; /* 薄いサーモン背景 */
+  --surface-dark: #2a211d; /* 暗い茶色背景 */
+  --text-light-primary: #3d2c24; /* ダークブラウン */
+  --text-light-secondary: #7d6b64; /* ミディアムブラウン */
+  --text-dark-primary: #FFF8F5;
+  --text-dark-secondary: #d9c2b8;
+  --border-light: #f0e4df;
+  --border-dark: #4a3c35;
   --animation-duration: 1.5s;
 }
 
@@ -68,13 +72,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(8px);
+  background-color: var(--bg-light);
   border-bottom: 1px solid var(--border-light);
 }
 
 .dark .header {
-  background-color: rgba(2, 6, 23, 0.8);
+  background-color: var(--bg-dark);
   border-bottom: 1px solid var(--border-dark);
 }
 
@@ -169,18 +172,28 @@ body {
 }
 
 .grid-bg {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px), 
-                    linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-  background-size: 3rem 3rem;
-  background-position: center;
+  width: 100vw;
+  height: 100vh;
+  background-image: 
+    linear-gradient(135deg, rgba(248, 164, 132, 0.03) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(248, 164, 132, 0.03) 25%, transparent 25%),
+    linear-gradient(45deg, rgba(248, 164, 132, 0.03) 25%, transparent 25%),
+    linear-gradient(315deg, rgba(248, 164, 132, 0.03) 25%, transparent 25%);
+  background-position: 40px 0, 40px 0, 0 0, 0 0;
+  background-size: 80px 80px;
+  background-repeat: repeat;
   z-index: -10;
 }
 
 .dark .grid-bg {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), 
-                    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-image: 
+    linear-gradient(135deg, rgba(248, 164, 132, 0.05) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(248, 164, 132, 0.05) 25%, transparent 25%),
+    linear-gradient(45deg, rgba(248, 164, 132, 0.05) 25%, transparent 25%),
+    linear-gradient(315deg, rgba(248, 164, 132, 0.05) 25%, transparent 25%);
+  opacity: 0.8;
 }
 
 .hero-content {
@@ -219,7 +232,7 @@ body {
 }
 
 .gradient {
-  background: linear-gradient(to right, #38BDF8, #A78BFA, #F472B6);
+  background: linear-gradient(to right, #f8a484, #f884b3, #84c7f8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -304,29 +317,37 @@ body {
 }
 
 .btn.primary {
-  background-color: transparent;
-  color: var(--primary);
-  border: 1px solid var(--primary);
+  background-color: var(--primary);
+  color: white;
+  border: none;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(248, 164, 132, 0.3);
 }
 
 .btn.primary:hover {
-  background-color: var(--primary);
-  color: var(--bg-dark);
-  box-shadow: 0 10px 15px -3px rgba(56, 189, 248, 0.2);
+  background-color: var(--primary-dark);
+  color: white;
+  box-shadow: 0 10px 15px -3px rgba(224, 126, 95, 0.4);
+  transform: translateY(-0.25rem) scale(1.02);
 }
 
 .btn.secondary {
   background-color: transparent;
-  border: 1px solid var(--primary);
+  border: 2px solid var(--primary);
   color: var(--primary);
   transition: all 0.3s ease;
 }
 
 .btn.secondary:hover {
-  background-color: var(--primary);
-  color: var(--bg-dark);
-  box-shadow: 0 10px 15px -3px rgba(56, 189, 248, 0.2);
+  background-color: var(--primary-light);
+  border-color: var(--primary-light);
+  color: var(--text-light-primary);
+  box-shadow: 0 10px 15px -3px rgba(248, 164, 132, 0.2);
+  transform: translateY(-0.25rem) scale(1.02);
+}
+
+.dark .btn.primary {
+  box-shadow: 0 4px 12px rgba(248, 164, 132, 0.5);
 }
 
 .dark .btn.secondary {
@@ -335,8 +356,8 @@ body {
 }
 
 .dark .btn.secondary:hover {
-  background-color: var(--primary);
-  color: var(--bg-dark);
+  background-color: var(--primary-light);
+  color: var(--text-light-primary);
 }
 
 /* Sections */
@@ -379,14 +400,15 @@ body {
   bottom: -0.5rem;
   left: 50%;
   width: 0;
-  height: 3px;
-  background: var(--primary);
+  height: 4px;
+  background: linear-gradient(to right, var(--primary), var(--primary-light));
+  border-radius: 2px;
   transform: translateX(-50%);
   transition: width 1s ease 0.5s;
 }
 
 .section.visible .section-header h2::after {
-  width: 60px;
+  width: 80px;
 }
 
 @media (min-width: 640px) {
@@ -440,14 +462,15 @@ body {
   flex-direction: column;
   gap: 1.5rem;
   padding: 2rem;
-  border-radius: 0.75rem;
+  border-radius: 1rem;
   border: 1px solid var(--border-light);
   background-color: var(--surface-light);
   opacity: 0;
   transform: translateY(30px);
   box-shadow: none;
-  transition: opacity 0.6s ease, transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: opacity 0.6s ease, transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-left 0.3s ease;
   will-change: transform, opacity, box-shadow;
+  border-left: 4px solid transparent;
 }
 
 .section.visible .card:nth-child(1) {
@@ -473,38 +496,40 @@ body {
 }
 
 .section.visible .card:hover {
-  transform: translateY(-0.5rem) !important;
-  box-shadow: 0 25px 50px -12px rgba(56, 189, 248, 0.2);
-  transition: transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  transform: translateY(-0.5rem) scale(1.02) !important;
+  box-shadow: 0 25px 50px -12px rgba(248, 164, 132, 0.25);
+  border-left: 4px solid var(--primary);
+  transition: transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-left 0.3s ease !important;
 }
 
 .section.visible .card:active {
-  transform: translateY(-0.25rem) !important;
-  box-shadow: 0 15px 30px -12px rgba(56, 189, 248, 0.3);
-  transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  transform: translateY(-0.25rem) scale(1.01) !important;
+  box-shadow: 0 15px 30px -12px rgba(248, 164, 132, 0.35);
+  border-left: 4px solid var(--primary-dark);
+  transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-left 0.1s ease !important;
 }
 
 .card-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 0.5rem;
-  border: 1px solid var(--border-light);
-  background-color: var(--bg-light);
+  width: 4rem;
+  height: 4rem;
+  border-radius: 1rem;
+  border: none;
+  background-color: rgba(248, 164, 132, 0.1);
   transform: scale(1);
-  transition: transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  will-change: transform;
+  transition: transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94), background-color 0.3s ease;
+  will-change: transform, background-color;
 }
 
 .dark .card-icon {
-  border-color: var(--border-dark);
-  background-color: var(--bg-dark);
+  background-color: rgba(248, 164, 132, 0.15);
 }
 
 .card:hover .card-icon {
   transform: scale(1.1);
+  background-color: rgba(248, 164, 132, 0.2);
 }
 
 .card-icon:active {
@@ -663,7 +688,7 @@ body {
 .form-group textarea:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.5);
+  box-shadow: 0 0 0 3px rgba(248, 164, 132, 0.2);
 }
 
 .form-group button {
@@ -671,11 +696,12 @@ body {
 }
 
 .form-error {
-  background-color: rgba(239, 68, 68, 0.1);
+  background-color: rgba(239, 68, 68, 0.08);
   border-left: 4px solid #ef4444;
   padding: 1rem;
   margin-bottom: 1.5rem;
-  border-radius: 0.25rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px -6px rgba(239, 68, 68, 0.2);
 }
 
 .form-error p {
@@ -685,10 +711,12 @@ body {
 }
 
 .form-success {
-  background-color: rgba(34, 197, 94, 0.1);
+  background-color: rgba(34, 197, 94, 0.08);
   border-left: 4px solid #22c55e;
   padding: 1rem;
   margin-bottom: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px -6px rgba(34, 197, 94, 0.2);
   border-radius: 0.25rem;
 }
 

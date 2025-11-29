@@ -78,6 +78,7 @@ const WorksDetail: React.FC<WorksDetailProps> = ({ onBack }) => {
 
   return (
     <div className="portfolio">
+      <div className="grid-bg"></div>
       <Header onBack={onBack} />
 
       <main className="main">
