@@ -110,6 +110,15 @@ const WorksDetail: React.FC<WorksDetailProps> = ({ onBack }) => {
                 <p>家庭にある食材からAIが献立を提案.</p>
               </div>
             </div>
+            
+            <div className="works-item coming-soon">
+              <div className="works-overlay coming-soon-overlay"></div>
+              <div className="works-content coming-soon-content">
+                <p className="works-category">New Project</p>
+                <h3>Coming Soon</h3>
+                <p>新しいアプリを開発中です。</p>
+              </div>
+            </div>
           </section>
         </div>
       </main>

@@ -163,6 +163,13 @@
   border: none; /* 枠線を削除 */
 }
 
+/* Coming Soon 専用スタイル */
+.works-item.coming-soon {
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--primary-light));
+  background-size: 300% 300%;
+  animation: gradientMove 8s ease infinite alternate;
+}
+
 .works-item.visible {
   opacity: 1;
   transform: translateY(0);
@@ -205,6 +212,11 @@
   box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5); /* 内側にシャドウを追加 */
 }
 
+.coming-soon-overlay {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.4) 100%);
+  mix-blend-mode: overlay;
+}
+
 .works-content {
   position: relative;
   margin-top: auto;
@@ -216,6 +228,17 @@
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* テキストシャドウを追加 */
   background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.5)); /* 下部に暗いグラデーションを追加 */
   border-radius: 0 0 1rem 1rem; /* 下部の角を丸く */
+}
+
+.coming-soon-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-top: 0;
+  background: none;
 }
 
 .works-item:hover .works-content {
@@ -234,6 +257,11 @@
   animation: fadeInUp 0.6s ease-out forwards 0.3s; /* アニメーションを追加 */
 }
 
+.coming-soon .works-category {
+  color: white;
+  opacity: 0.9;
+}
+
 .works-content h3 {
   font-size: 1.75rem;
   font-weight: 800;
@@ -245,6 +273,13 @@
   opacity: 0; /* 初期状態は非表示 */
   transform: translateY(15px);
   animation: fadeInUp 0.7s ease-out forwards 0.5s; /* アニメーションを追加 */
+}
+
+.coming-soon .works-content h3 {
+  font-size: 2rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 900;
 }
 
 .works-content h3::after {
@@ -274,6 +309,14 @@
   opacity: 0; /* 初期状態は非表示 */
   transform: translateY(10px);
   animation: fadeInUp 0.6s ease-out forwards 0.7s; /* アニメーションを追加 */
+}
+
+.coming-soon .works-content p {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.95);
+  margin-top: 0.5rem;
+  max-width: 100%;
+  text-align: center;
 }
 
 .works-link {
