@@ -12,7 +12,6 @@ const Header: React.FC<HeaderProps> = ({ onBack }) => {
           e.preventDefault();
           if (onBack) onBack();
         }}>
-          <span className="icon">terminal</span>
           <h2>Tech Aile</h2>
         </a>
       </div>
